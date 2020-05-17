@@ -78,10 +78,12 @@ function Card({
 
   const handleDragLeave = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setIsOver(false);
+    setOverDir(0);
   };
   const handleDrop = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
     setIsOver(false);
+    setOverDir(0);
     console.log("to : " + index);
   };
   return (
