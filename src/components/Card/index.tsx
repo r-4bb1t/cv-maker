@@ -8,7 +8,6 @@ interface CardProps {
   w: number;
   h: number;
   index: number;
-  overDir: number;
   onDragEvent(input: () => void): void;
   onDrag(input: () => void): void;
   onDragEnd(input: () => void): void;
@@ -25,7 +24,6 @@ function Card({
   h,
   index,
   children,
-  overDir,
   onDragEvent,
   onDrag,
   onDragEnd,
@@ -35,6 +33,7 @@ function Card({
 }: CardProps) {
   const [isClicked, setIsClicked] = useState(false);
   const [isOver, setIsOver] = useState(false);
+  const [overDir, setOverDir] = useState(0);
   const ref = React.useRef(null);
   const getRef = () => {
     return ref.current.getBoundingClientRect();
@@ -54,7 +53,7 @@ function Card({
     e.preventDefault();
     /* console.log(((e.pageX - getRef().left) / getRef().width) * 2 - 1);
           console.log(((e.pageY - getRef().top) / getRef().height) * 2 - 1); */
-    /* setOverDir(
+    setOverDir(
       Math.floor(
         (Math.atan2(
           ((e.pageY - getRef().top) / getRef().height) * 2 - 1,
@@ -64,7 +63,7 @@ function Card({
           225) /
           90
       )
-    ); */
+    );
     /* return Math.floor(
       (Math.atan2(
         ((e.pageY - getRef().top) / getRef().height) * 2 - 1,

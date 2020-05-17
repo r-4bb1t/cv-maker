@@ -28,10 +28,10 @@ const onDrop = (updateStateCallback: () => void) => {
 
 function Table() {
   const [cards, setCards] = useState([
-    { index: 1, x: 0, w: 100, row: 1, propDir: 0 },
-    { index: 2, x: 0, w: 100, row: 2, propDir: 0 },
-    { index: 3, x: 0, w: 50, row: 3, propDir: 0 },
-    { index: 4, x: 50, w: 50, row: 3, propDir: 0 },
+    { index: 1, x: 0, w: 100, row: 1 },
+    { index: 2, x: 0, w: 100, row: 2 },
+    { index: 3, x: 0, w: 50, row: 3 },
+    { index: 4, x: 50, w: 50, row: 3 },
   ]);
   const [rows, setRows] = useState([0, 10, 10, 10]);
   return (
@@ -46,7 +46,6 @@ function Table() {
               h={rows[arr.row]}
               index={arr.index}
               key={i}
-              overDir={arr.propDir}
               onDragEvent={onDragEvent}
               onDrag={onDrag}
               onDragEnd={onDragEnd}
