@@ -19,9 +19,9 @@ export const Card = styled.div<CardProps>`
   opacity: ${(props) => (props.isClicked ? "0.2" : "1")};
   color:#000;
   z-index:${(props) => (props.isOver ? 1 : 0)};
-  border-top: ${(props) => (props.overDir == 1 ? "2px dashed red" : "none")};
-  border-right: ${(props) => (props.overDir == 2 ? "2px dashed red" : "none")};
-  border-bottom: ${(props) => (props.overDir == 3 ? "2px dashed red" : "none")};
-  border-left: ${(props) => (props.overDir == 4 ? "2px dashed red" : "none")};
+  border-top: ${(props) => (props.overDir == 1 ? "2px solid red" : "none")};
+  border-right: ${(props) => (props.overDir == 2 ? "2px solid red" : "none")};
+  border-bottom: ${(props) => (props.overDir == 3 ? "2px solid red" : "none")};
+  border-left: ${(props) => (props.overDir == 4 ? "2px solid red" : "none")};
   /* display: ${(props) => (props.isClicked ? "none" : "block")}; */
 `;
