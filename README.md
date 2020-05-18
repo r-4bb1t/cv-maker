@@ -1,2 +1,4 @@
-<h1>CV MAKER by r4bb1t👀</h1>
+# CV-Maker👀
 > cv maker web app
+
+by @r4bb1t
