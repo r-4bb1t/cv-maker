@@ -1,5 +1,7 @@
 import React from "react";
-import logo from "./logo.svg";
+import ReactDOM from "react-dom";
+import { DndProvider } from "react-dnd";
+import Backend from "react-dnd-html5-backend";
 import "./App.css";
 
 import Table from "./components/Table";
@@ -10,7 +12,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         <GlobalStyle />
-        <Table />
+        <DndProvider backend={Backend}>
+          <Table />
+        </DndProvider>
       </header>
     </div>
   );

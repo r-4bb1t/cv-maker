@@ -1,27 +1,15 @@
 import styled from "styled-components";
 
 interface CardProps {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-  overDir: number;
-  isClicked: boolean;
-  isOver: boolean;
+  num?: number;
+  isDragging: boolean;
 }
+
 export const Card = styled.div<CardProps>`
-  position: absolute;
-  width: ${(props) => props.w}%;
-  height: ${(props) => props.h}%;
-  top: ${(props) => props.y}%;
-  left: ${(props) => props.x}%;
-  background: ${(props) => (props.isClicked ? "#ff9494" : props.isOver ? "#eee" : "#fff")};
-  opacity: ${(props) => (props.isClicked ? "0.2" : "1")};
-  color:#000;
-  z-index:${(props) => (props.isOver ? 1 : 0)};
-  border-top: ${(props) => (props.overDir == 1 ? "2px solid red" : "none")};
-  border-right: ${(props) => (props.overDir == 2 ? "2px solid red" : "none")};
-  border-bottom: ${(props) => (props.overDir == 3 ? "2px solid red" : "none")};
-  border-left: ${(props) => (props.overDir == 4 ? "2px solid red" : "none")};
-  /* display: ${(props) => (props.isClicked ? "none" : "block")}; */
+  position: relative;
+  width: 70%;
+  height: 10%;
+  background: #daf;
+  color: #000;
+  /* opacity: ${(props) => (props.isDragging ? 0.5 : 1)}; */
 `;
