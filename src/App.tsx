@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <GlobalStyle />
       <DndProvider backend={Backend}>
-        <Table />
+        <Table zoom={1} />
       </DndProvider>
     </div>
   );

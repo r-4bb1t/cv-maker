@@ -24,7 +24,7 @@ function Card({ id, row, height, moveCard, findCard, children }: CardProps) {
   const [{ isDragging }, drag, preview] = useDrag({
     item: { type: "card", id, originalIndex },
     collect: (monitor) => ({
-      isDragging: monitor.getItem() === null ? false : id === monitor.getItem().id,
+      isDragging: monitor.isDragging(),
     }),
     end: (dropResult, monitor) => {
       const { id: droppedId, originalIndex } = monitor.getItem();
@@ -40,18 +40,18 @@ function Card({ id, row, height, moveCard, findCard, children }: CardProps) {
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
-    hover({ id: draggedId }: Item, monitor) {
-      console.log(monitor.getInitialSourceClientOffset());
-      console.log(monitor.getClientOffset());
-      console.log(monitor.getSourceClientOffset());
-      console.log("--------------------------------");
-    },
-    drop({ id: draggedId }: Item) {
+    hover({ id: draggedId }: Item) {
       if (draggedId !== id) {
         const { index: overIndex } = findCard(id);
         moveCard(draggedId, overIndex);
       }
     },
+    /* drop({ id: draggedId }: Item) {
+      if (draggedId !== id) {
+        const { index: overIndex } = findCard(id);
+        moveCard(draggedId, overIndex);
+      }
+    }, */
   });
 
   return (
@@ -61,6 +61,7 @@ function Card({ id, row, height, moveCard, findCard, children }: CardProps) {
         id:{id}, {isOver.toString()}, row:{row}, height:{height}
         <br />
         {children}
+        <S.BorderLine isOver={isOver} />
       </S.Card>
     </>
   );

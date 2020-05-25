@@ -5,6 +5,7 @@ interface TableProps {
 }
 
 export const Table = styled.div<TableProps>`
+  zoom: ${(props) => props.zoom};
   background: #fff;
   width: 21cm;
   height: 29.7cm;

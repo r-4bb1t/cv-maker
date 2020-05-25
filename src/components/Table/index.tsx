@@ -4,25 +4,34 @@ import { useDrop } from "react-dnd";
 import { Map, List, Record } from "immutable";
 import Card from "../Card";
 
+interface TableProps {
+  zoom: number;
+}
+
 const cardItems = List([
   Map({
     id: 0,
-    children: "인생은 인생이다",
+    children: "a",
     height: 1,
   }),
   Map({
     id: 1,
-    children: "인생은 씨발이다",
+    children: "bb",
     height: 2,
   }),
   Map({
     id: 2,
-    children: "씨발은 인생이다",
+    children: "ccc",
     height: 3,
+  }),
+  Map({
+    id: 3,
+    children: "dddd",
+    height: 4,
   }),
 ]);
 
-function Table() {
+function Table({ zoom }: TableProps) {
   const [cards, setCards] = useState(cardItems);
 
   const moveCard = (id: number, toIndex: number) => {
@@ -44,7 +53,7 @@ function Table() {
 
   return (
     <>
-      <S.Table ref={drop}>
+      <S.Table ref={drop} zoom={zoom}>
         {cards.map((card, i) => (
           <Card
             key={i}
