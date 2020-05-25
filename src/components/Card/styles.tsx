@@ -28,19 +28,15 @@ export const Card = styled.div<CardProps>`
 export const DragHandle = styled.div`
   position: absolute;
   cursor: move;
-  right: 10px;
-  top: 10px;
-  width: 0;
-  height: 0;
-  border-top: 20px solid #ccc;
-  border-left: 20px solid transparent;
+  right: 15px;
+  top: calc(50%-var(height) / 2);
 `;
 
 export const BorderLine = styled.div<BorderProps>`
   background: lightgray;
   position: absolute;
-  left: 5%;
+  left: 2.5%;
   bottom: 0px;
-  width: 90%;
-  height: 1px;
+  width: 95%;
+  height: 2px;
 `;

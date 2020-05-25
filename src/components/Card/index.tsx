@@ -3,6 +3,8 @@ import { useDrag, useDrop, DragPreviewImage } from "react-dnd";
 import { XYCoord } from "dnd-core";
 import ReactDOM from "react-dom";
 import * as S from "./styles";
+import DragHandleIcon from "@material-ui/icons/DragHandle";
+import HeightIcon from "@material-ui/icons/Height";
 
 interface CardProps {
   children?: React.ReactNode;
@@ -57,9 +59,9 @@ function Card({ id, row, height, moveCard, findCard, children }: CardProps) {
   return (
     <>
       <S.Card ref={(node) => drop(preview(node))} isDragging={isDragging} isOver={isOver} row={row} height={height}>
-        <S.DragHandle ref={(node) => drag(node)} />
-        id:{id}, {isOver.toString()}, row:{row}, height:{height}
-        <br />
+        <S.DragHandle ref={(node) => drag(node)}>
+          <DragHandleIcon style={{ color: "lightgray" }} />
+        </S.DragHandle>
         {children}
         <S.BorderLine isOver={isOver} />
       </S.Card>

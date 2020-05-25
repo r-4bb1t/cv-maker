@@ -5,16 +5,16 @@ import Backend from "react-dnd-html5-backend";
 import "./App.css";
 
 import Table from "./components/Table";
-import GlobalStyle from "Styles/GlobalStyle";
 
 function App() {
   return (
-    <div className="App">
-      <GlobalStyle />
-      <DndProvider backend={Backend}>
-        <Table zoom={1} />
-      </DndProvider>
-    </div>
+    <>
+      <div className="App">
+        <DndProvider backend={Backend}>
+          <Table zoom={1} />
+        </DndProvider>
+      </div>
+    </>
   );
 }
 

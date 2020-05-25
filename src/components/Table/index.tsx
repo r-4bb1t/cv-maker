@@ -3,6 +3,7 @@ import * as S from "./styles";
 import { useDrop } from "react-dnd";
 import { Map, List, Record } from "immutable";
 import Card from "../Card";
+import Profile from "../Contents/Profile";
 
 interface TableProps {
   zoom: number;
@@ -11,23 +12,23 @@ interface TableProps {
 const cardItems = List([
   Map({
     id: 0,
-    children: "a",
-    height: 1,
+    children: <Profile />,
+    height: 3,
   }),
   Map({
     id: 1,
-    children: "bb",
+    children: "인생은 인생이다",
     height: 2,
   }),
   Map({
     id: 2,
-    children: "ccc",
+    children: "냥냔냥",
     height: 3,
   }),
   Map({
     id: 3,
-    children: "dddd",
-    height: 4,
+    children: "열라면에 다진마늘",
+    height: 2,
   }),
 ]);
 
