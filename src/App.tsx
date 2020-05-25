@@ -10,12 +10,10 @@ import GlobalStyle from "Styles/GlobalStyle";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <GlobalStyle />
-        <DndProvider backend={Backend}>
-          <Table />
-        </DndProvider>
-      </header>
+      <GlobalStyle />
+      <DndProvider backend={Backend}>
+        <Table />
+      </DndProvider>
     </div>
   );
 }

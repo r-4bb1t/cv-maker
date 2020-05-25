@@ -8,14 +8,17 @@ const cardItems = List([
   Map({
     id: 0,
     children: "asdf0",
+    height: 1,
   }),
   Map({
     id: 1,
     children: "asdf1",
+    height: 2,
   }),
   Map({
     id: 2,
     children: "asdf2",
+    height: 3,
   }),
 ]);
 
@@ -25,8 +28,7 @@ function Table() {
   const moveCard = (id: number, toIndex: number) => {
     const { card, index } = findCard(id);
     let newCards = cards;
-    newCards = newCards.splice(index, 1);
-    newCards = newCards.splice(toIndex, 0, card);
+    newCards = newCards.splice(index, 1).splice(toIndex, 0, card);
     setCards(newCards);
   };
 
@@ -44,7 +46,15 @@ function Table() {
     <>
       <S.Table ref={drop}>
         {cards.map((card, i) => (
-          <Card key={i} id={card.get("id")} moveCard={moveCard} findCard={findCard} children={card.get("children")} />
+          <Card
+            key={i}
+            row={i}
+            height={card.get("height")}
+            id={card.get("id")}
+            moveCard={moveCard}
+            findCard={findCard}
+            children={card.get("children")}
+          />
         ))}
       </S.Table>
     </>

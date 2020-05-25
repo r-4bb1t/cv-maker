@@ -7,6 +7,8 @@ import * as S from "./styles";
 interface CardProps {
   children?: React.ReactNode;
   id: any;
+  row: number;
+  height: any;
   moveCard: (fromIndex: number, toIndex: number) => void;
   findCard: (index: number) => { index: number };
 }
@@ -17,12 +19,12 @@ interface Item {
   originalIndex: number;
 }
 
-function Card({ id, moveCard, findCard, children }: CardProps) {
+function Card({ id, row, height, moveCard, findCard, children }: CardProps) {
   const originalIndex = findCard(id).index;
   const [{ isDragging }, drag] = useDrag({
     item: { type: "card", id, originalIndex },
     collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
+      isDragging: monitor.getItem() === null ? false : id === monitor.getItem().id,
     }),
     end: (dropResult, monitor) => {
       const { id: droppedId, originalIndex } = monitor.getItem();
@@ -33,9 +35,12 @@ function Card({ id, moveCard, findCard, children }: CardProps) {
     },
   });
 
-  const [, drop] = useDrop({
+  const [{ isOver }, drop] = useDrop({
     accept: "card",
     canDrop: () => false,
+    collect: (monitor) => ({
+      isOver: monitor.getItem() === null ? false : id === monitor.getItem().id,
+    }),
     hover({ id: draggedId }: Item) {
       if (draggedId !== id) {
         const { index: overIndex } = findCard(id);
@@ -46,8 +51,8 @@ function Card({ id, moveCard, findCard, children }: CardProps) {
 
   return (
     <>
-      <S.Card ref={(node) => drag(drop(node))} isDragging={isDragging}>
-        id:{id}, {isDragging.toString()}
+      <S.Card ref={(node) => drag(drop(node))} isDragging={isOver} row={row} height={height}>
+        id:{id}, {isOver.toString()}, row:{row}, height:{height}
         <br />
         {children}
       </S.Card>
