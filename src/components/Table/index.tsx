@@ -7,17 +7,17 @@ import Card from "../Card";
 const cardItems = List([
   Map({
     id: 0,
-    children: "asdf0",
+    children: "인생은 인생이다",
     height: 1,
   }),
   Map({
     id: 1,
-    children: "asdf1",
+    children: "인생은 씨발이다",
     height: 2,
   }),
   Map({
     id: 2,
-    children: "asdf2",
+    children: "씨발은 인생이다",
     height: 3,
   }),
 ]);

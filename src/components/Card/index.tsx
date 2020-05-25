@@ -1,5 +1,5 @@
 import React, { ReactNode, useState, useRef } from "react";
-import { useDrag, useDrop, DropTargetMonitor } from "react-dnd";
+import { useDrag, useDrop, DragPreviewImage } from "react-dnd";
 import { XYCoord } from "dnd-core";
 import ReactDOM from "react-dom";
 import * as S from "./styles";
@@ -21,7 +21,7 @@ interface Item {
 
 function Card({ id, row, height, moveCard, findCard, children }: CardProps) {
   const originalIndex = findCard(id).index;
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag, preview] = useDrag({
     item: { type: "card", id, originalIndex },
     collect: (monitor) => ({
       isDragging: monitor.getItem() === null ? false : id === monitor.getItem().id,
@@ -38,9 +38,14 @@ function Card({ id, row, height, moveCard, findCard, children }: CardProps) {
   const [{ isOver }, drop] = useDrop({
     accept: "card",
     collect: (monitor) => ({
-      isOver: monitor.getItem() === null ? false : id === monitor.getItem().id,
+      isOver: monitor.isOver(),
     }),
-
+    hover({ id: draggedId }: Item, monitor) {
+      console.log(monitor.getInitialSourceClientOffset());
+      console.log(monitor.getClientOffset());
+      console.log(monitor.getSourceClientOffset());
+      console.log("--------------------------------");
+    },
     drop({ id: draggedId }: Item) {
       if (draggedId !== id) {
         const { index: overIndex } = findCard(id);
@@ -51,7 +56,8 @@ function Card({ id, row, height, moveCard, findCard, children }: CardProps) {
 
   return (
     <>
-      <S.Card ref={(node) => drag(drop(node))} isDragging={isDragging} row={row} height={height}>
+      <S.Card ref={(node) => drop(preview(node))} isDragging={isDragging} isOver={isOver} row={row} height={height}>
+        <S.DragHandle ref={(node) => drag(node)} />
         id:{id}, {isOver.toString()}, row:{row}, height:{height}
         <br />
         {children}
