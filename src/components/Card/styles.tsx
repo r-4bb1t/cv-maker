@@ -7,8 +7,9 @@ interface CardProps {
 }
 
 export const Card = styled.div<CardProps>`
-  position: relative;
-  width: 70%;
+  position: static;
+  float: left;
+  width: 100%;
   height: ${(props) => props.height * 10}%;
   background: #daf;
   color: #000;

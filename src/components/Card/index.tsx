@@ -37,11 +37,11 @@ function Card({ id, row, height, moveCard, findCard, children }: CardProps) {
 
   const [{ isOver }, drop] = useDrop({
     accept: "card",
-    canDrop: () => false,
     collect: (monitor) => ({
       isOver: monitor.getItem() === null ? false : id === monitor.getItem().id,
     }),
-    hover({ id: draggedId }: Item) {
+
+    drop({ id: draggedId }: Item) {
       if (draggedId !== id) {
         const { index: overIndex } = findCard(id);
         moveCard(draggedId, overIndex);
@@ -51,7 +51,7 @@ function Card({ id, row, height, moveCard, findCard, children }: CardProps) {
 
   return (
     <>
-      <S.Card ref={(node) => drag(drop(node))} isDragging={isOver} row={row} height={height}>
+      <S.Card ref={(node) => drag(drop(node))} isDragging={isDragging} row={row} height={height}>
         id:{id}, {isOver.toString()}, row:{row}, height:{height}
         <br />
         {children}
