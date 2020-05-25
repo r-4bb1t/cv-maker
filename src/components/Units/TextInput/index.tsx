@@ -11,7 +11,14 @@ interface TextInputProps {
   makeNewLine: boolean;
 }
 
-function TextInput({ init, fontFamily, fontSize, fontWeight, lineHeight, makeNewLine }: TextInputProps) {
+function TextInput({
+  init,
+  fontFamily,
+  fontSize,
+  fontWeight,
+  lineHeight,
+  makeNewLine,
+}: TextInputProps) {
   const ref = useRef(null);
   const [text, setText] = useState(init);
   const [editable, setEditable] = useState(false);
@@ -27,7 +34,8 @@ function TextInput({ init, fontFamily, fontSize, fontWeight, lineHeight, makeNew
     }
   };
   const handleClickOutside = (e) => {
-    if (editable == true && !ref.current.contains(e.target)) setEditable(false);
+    if (editable == true && ref.current && !ref.current.contains(e.target))
+      setEditable(false);
   };
   useEffect(() => {
     window.addEventListener("click", handleClickOutside, true);

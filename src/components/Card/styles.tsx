@@ -18,7 +18,7 @@ export const Card = styled.div<CardProps>`
   height: ${(props) => props.height * 10}%;
   background: ${(props) => (props.isOver ? "lightblue" : "white")};
   color: #000;
-  opacity: ${(props) => (props.isDragging ? 0.3 : 1)};
+  /* opacity: ${(props) => (props.isDragging ? 0.3 : 1)}; */
   display: flex;
   align-items: center;
   justify-content: center;
