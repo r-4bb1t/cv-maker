@@ -1,4 +1,5 @@
-# CV-Maker👀
-> cv maker web app
+# ✨CV maker
+cv making web app!
 
-by @r4bb1t
+## 👥Contributor
+- 🐰 **tokki kim** | github [@r-4bb1t](https://github.com/r-4bb1t)
