@@ -11,3 +11,6 @@ cv making web app!
     - drag
 - Skill
   - graph
+- Save
+  - PDF
+  - image
