@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import * as S from "./styles";
 import TextInput from "../../Units/TextInput";
+import ImageUploader from "../../Units/ImageUploader";
 
 function Profile({}) {
   return (
     <>
       <S.ProfileImageContainer>
-        <S.ProfileImage src="https://pbs.twimg.com/profile_images/1100253079096705025/beJ45nd4_400x400.jpg" />
-        <S.Overlay>프로필 사진</S.Overlay>
+        <ImageUploader />
       </S.ProfileImageContainer>
       <S.TextContainer>
         <TextInput init={"개발자는 영어로 DogFootRuler"} fontFamily={"InkLipquid"} fontSize={1.5} makeNewLine={true} />
