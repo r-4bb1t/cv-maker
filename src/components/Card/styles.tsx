@@ -1,14 +1,13 @@
 import styled from "styled-components";
 
 interface CardProps {
-  row: number;
   height: number;
   isDragging: boolean;
   isOver: boolean;
 }
 
-interface BorderProps {
-  isOver: boolean;
+interface ResizeProps {
+  isResizing: boolean;
 }
 
 export const Card = styled.div<CardProps>`
@@ -32,8 +31,14 @@ export const DragHandle = styled.div`
   top: calc(50%-var(height) / 2);
 `;
 
-export const BorderLine = styled.div<BorderProps>`
-  background: lightgray;
+export const ResizeHandle = styled.div`
+  cursor: s-resize;
+  position: relative;
+  top: -30px;
+`;
+
+export const BorderLine = styled.div<ResizeProps>`
+  background: ${(props) => (props.isResizing ? "lightblue" : "lightgray")};
   position: absolute;
   left: 2.5%;
   bottom: 0px;

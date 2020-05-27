@@ -40,9 +40,10 @@ function Table({ zoom }: TableProps) {
     let newCards = cards;
     newCards = newCards.splice(index, 1).splice(toIndex, 0, card);
     setCards(newCards);
+    setLastHeight();
   };
 
-  const findCard = (id: number) => {
+  const findCard = (id: any) => {
     const card = cards.filter((c) => c.get("id") === id).get(0);
     return {
       card,
@@ -50,19 +51,56 @@ function Table({ zoom }: TableProps) {
     };
   };
 
-  const [, drop] = useDrop({ accept: "card" });
+  const setLastHeight = () => {
+    /* let s = 0;
+    cards.map(
+      (card, i) =>
+        (s += findCard(card.get("id")).index === cards.size - 1 ? 0 : Number.parseInt(card.get("height").toString()))
+    );
+    console.log(s); */
+    /* let newCards = cards;
+    newCards = newCards.setIn([cards.size - 1, "height"], 10 - s);
+    setCards(newCards); */
+  };
+
+  const setHeight = (id: number, to: number) => {
+    let newCards = cards;
+    newCards = newCards.setIn([id, "height"], to);
+    setCards(newCards);
+    setLastHeight();
+  };
+
+  const [, resizeDrop] = useDrop({
+    accept: "resize",
+    hover(item, monitor) {
+      const { index, height } = monitor.getItem();
+      if (index < cards.size - 1) {
+        let sum = cards.getIn([index, "height"]) + cards.getIn([index + 1, "height"]);
+        let temp = Math.max(Math.round(height + monitor.getDifferenceFromInitialOffset().y / 100), 1);
+        console.log("sum " + sum);
+        console.log("temp " + temp);
+        if (temp < sum) {
+          let newCards = cards;
+          newCards = newCards.setIn([cards.getIn([index, "id"]), "height"], temp);
+          newCards = newCards.setIn([cards.getIn([index + 1, "id"]), "height"], sum - temp);
+          setCards(newCards);
+        }
+        console.log(sum - temp);
+      }
+    },
+  });
 
   return (
     <>
-      <S.Table ref={drop} zoom={zoom}>
+      <S.Table ref={(node) => resizeDrop(node)} zoom={zoom}>
         {cards.map((card, i) => (
           <Card
             key={i}
-            row={i}
             height={card.get("height")}
             id={card.get("id")}
             moveCard={moveCard}
             findCard={findCard}
+            isLast={findCard(card.get("id")).index === cards.size - 1}
             children={card.get("children")}
           />
         ))}

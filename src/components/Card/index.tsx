@@ -4,15 +4,15 @@ import { XYCoord } from "dnd-core";
 import ReactDOM from "react-dom";
 import * as S from "./styles";
 import DragHandleIcon from "@material-ui/icons/DragHandle";
-import HeightIcon from "@material-ui/icons/Height";
+import HeightIcon from "@material-ui/icons/Minimize";
 
 interface CardProps {
   children?: React.ReactNode;
   id: any;
-  row: number;
   height: any;
   moveCard: (fromIndex: number, toIndex: number) => void;
   findCard: (index: number) => { index: number };
+  isLast: boolean;
 }
 
 interface Item {
@@ -21,7 +21,7 @@ interface Item {
   originalIndex: number;
 }
 
-function Card({ id, row, height, moveCard, findCard, children }: CardProps) {
+function Card({ id, height, moveCard, findCard, isLast, children }: CardProps) {
   const originalIndex = findCard(id).index;
   const [{ isDragging }, drag, preview] = useDrag({
     item: { type: "card", id, originalIndex },
@@ -56,14 +56,34 @@ function Card({ id, row, height, moveCard, findCard, children }: CardProps) {
     }, */
   });
 
+  const [{ isDragging: isResizing }, resize, resizePreview] = useDrag({
+    item: { type: "resize", index: findCard(id).index, height },
+    options: {
+      dropEffect: "copy",
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
   return (
     <>
-      <S.Card ref={(node) => drop(preview(node))} isDragging={isDragging} isOver={isOver} row={row} height={height}>
+      <S.Card ref={(node) => drop(preview(node))} isDragging={isDragging} isOver={isOver} height={height}>
         <S.DragHandle ref={(node) => drag(node)}>
           <DragHandleIcon style={{ color: "lightgray" }} />
         </S.DragHandle>
         {children}
-        <S.BorderLine isOver={isOver} />
+        {/* <span style={{ fontSize: "2rem" }}>{children}</span> */}
+        {isLast ? (
+          <></>
+        ) : (
+          <S.BorderLine isResizing={isResizing} ref={(node) => resize(node)}>
+            <DragPreviewImage connect={resizePreview} src={"nullPreview.png"} />
+            <S.ResizeHandle ref={(node) => resize(node)}>
+              <HeightIcon style={{ color: "lightgray" }} />
+            </S.ResizeHandle>
+          </S.BorderLine>
+        )}
       </S.Card>
     </>
   );
