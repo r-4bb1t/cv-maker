@@ -12,8 +12,9 @@ interface TableProps {
 const cardItems = List([
   Map({
     id: 0,
-    children: <Profile />,
-    height: 3,
+    /* children: <Profile />, */
+    children: "고양이다.",
+    height: 2,
   }),
   Map({
     id: 1,
@@ -23,11 +24,16 @@ const cardItems = List([
   Map({
     id: 2,
     children: "냥냔냥",
-    height: 3,
+    height: 2,
   }),
   Map({
     id: 3,
     children: "열라면에 다진마늘",
+    height: 2,
+  }),
+  Map({
+    id: 4,
+    children: "Life is life!",
     height: 2,
   }),
 ]);
@@ -40,7 +46,6 @@ function Table({ zoom }: TableProps) {
     let newCards = cards;
     newCards = newCards.splice(index, 1).splice(toIndex, 0, card);
     setCards(newCards);
-    setLastHeight();
   };
 
   const findCard = (id: any) => {
@@ -51,41 +56,17 @@ function Table({ zoom }: TableProps) {
     };
   };
 
-  const setLastHeight = () => {
-    /* let s = 0;
-    cards.map(
-      (card, i) =>
-        (s += findCard(card.get("id")).index === cards.size - 1 ? 0 : Number.parseInt(card.get("height").toString()))
-    );
-    console.log(s); */
-    /* let newCards = cards;
-    newCards = newCards.setIn([cards.size - 1, "height"], 10 - s);
-    setCards(newCards); */
-  };
-
-  const setHeight = (id: number, to: number) => {
-    let newCards = cards;
-    newCards = newCards.setIn([id, "height"], to);
-    setCards(newCards);
-    setLastHeight();
-  };
-
   const [, resizeDrop] = useDrop({
     accept: "resize",
     hover(item, monitor) {
       const { index, height } = monitor.getItem();
-      if (index < cards.size - 1) {
-        let sum = cards.getIn([index, "height"]) + cards.getIn([index + 1, "height"]);
-        let temp = Math.max(Math.round(height + monitor.getDifferenceFromInitialOffset().y / 100), 1);
-        console.log("sum " + sum);
-        console.log("temp " + temp);
-        if (temp < sum) {
-          let newCards = cards;
-          newCards = newCards.setIn([cards.getIn([index, "id"]), "height"], temp);
-          newCards = newCards.setIn([cards.getIn([index + 1, "id"]), "height"], sum - temp);
-          setCards(newCards);
-        }
-        console.log(sum - temp);
+      let sum = cards.getIn([index, "height"]) + cards.getIn([index + 1, "height"]);
+      let temp = Math.max(Math.round(height + monitor.getDifferenceFromInitialOffset().y / 100), 1);
+      if (temp < sum) {
+        let newCards = cards;
+        newCards = newCards.setIn([index, "height"], temp);
+        newCards = newCards.setIn([index + 1, "height"], sum - temp);
+        setCards(newCards);
       }
     },
   });

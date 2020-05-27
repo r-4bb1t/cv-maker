@@ -72,8 +72,12 @@ function Card({ id, height, moveCard, findCard, isLast, children }: CardProps) {
         <S.DragHandle ref={(node) => drag(node)}>
           <DragHandleIcon style={{ color: "lightgray" }} />
         </S.DragHandle>
-        {children}
-        {/* <span style={{ fontSize: "2rem" }}>{children}</span> */}
+        {/* {children} */}
+        {
+          <span style={{ fontWeight: 700, fontSize: "1.2rem" }}>
+            {id} : {children}
+          </span>
+        }
         {isLast ? (
           <></>
         ) : (
