@@ -12,8 +12,9 @@ interface TableProps {
 const cardItems = List([
   Map({
     id: 0,
-    children: <Profile />,
-    height: 3,
+    /* children: <Profile />, */
+    children: "고양이다.",
+    height: 2,
   }),
   Map({
     id: 1,
@@ -23,11 +24,16 @@ const cardItems = List([
   Map({
     id: 2,
     children: "냥냔냥",
-    height: 3,
+    height: 2,
   }),
   Map({
     id: 3,
     children: "열라면에 다진마늘",
+    height: 2,
+  }),
+  Map({
+    id: 4,
+    children: "Life is life!",
     height: 2,
   }),
 ]);
@@ -42,7 +48,7 @@ function Table({ zoom }: TableProps) {
     setCards(newCards);
   };
 
-  const findCard = (id: number) => {
+  const findCard = (id: any) => {
     const card = cards.filter((c) => c.get("id") === id).get(0);
     return {
       card,
@@ -50,19 +56,32 @@ function Table({ zoom }: TableProps) {
     };
   };
 
-  const [, drop] = useDrop({ accept: "card" });
+  const [, resizeDrop] = useDrop({
+    accept: "resize",
+    hover(item, monitor) {
+      const { index, height } = monitor.getItem();
+      let sum = cards.getIn([index, "height"]) + cards.getIn([index + 1, "height"]);
+      let temp = Math.max(Math.round(height + monitor.getDifferenceFromInitialOffset().y / 100), 1);
+      if (temp < sum) {
+        let newCards = cards;
+        newCards = newCards.setIn([index, "height"], temp);
+        newCards = newCards.setIn([index + 1, "height"], sum - temp);
+        setCards(newCards);
+      }
+    },
+  });
 
   return (
     <>
-      <S.Table ref={drop} zoom={zoom}>
+      <S.Table ref={(node) => resizeDrop(node)} zoom={zoom}>
         {cards.map((card, i) => (
           <Card
             key={i}
-            row={i}
             height={card.get("height")}
             id={card.get("id")}
             moveCard={moveCard}
             findCard={findCard}
+            isLast={findCard(card.get("id")).index === cards.size - 1}
             children={card.get("children")}
           />
         ))}
