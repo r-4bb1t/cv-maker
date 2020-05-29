@@ -11,7 +11,7 @@ export const Table = styled.div<TableProps>`
   height: 29.7cm;
   position: absolute;
   top: 0px;
-  margin: 50px;
+  margin-top: 50px;
   zoom: ${(props) => (props.zoom ? props.zoom : 1)};
   text-align: center;
 `;

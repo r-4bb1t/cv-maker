@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import * as S from "./styles";
 import { useDrop } from "react-dnd";
 import { Map, List, Record } from "immutable";
-import Card from "../Card";
-import Profile from "../Contents/Profile";
+import Card from "../../components/Card";
+import Profile from "../../components/Contents/Profile";
 
 interface TableProps {
   zoom: number;
@@ -60,8 +60,12 @@ function Table({ zoom }: TableProps) {
     accept: "resize",
     hover(item, monitor) {
       const { index, height } = monitor.getItem();
-      let sum = cards.getIn([index, "height"]) + cards.getIn([index + 1, "height"]);
-      let temp = Math.max(Math.round(height + monitor.getDifferenceFromInitialOffset().y / 100), 1);
+      let sum =
+        cards.getIn([index, "height"]) + cards.getIn([index + 1, "height"]);
+      let temp = Math.max(
+        Math.round(height + monitor.getDifferenceFromInitialOffset().y / 100),
+        1
+      );
       if (temp < sum) {
         let newCards = cards;
         newCards = newCards.setIn([index, "height"], temp);
