@@ -1,7 +1,5 @@
 import React, { ReactNode, useState, useRef } from "react";
 import { useDrag, useDrop, DragPreviewImage } from "react-dnd";
-import { XYCoord } from "dnd-core";
-import ReactDOM from "react-dom";
 import * as S from "./styles";
 import DragHandleIcon from "@material-ui/icons/DragHandle";
 import HeightIcon from "@material-ui/icons/Minimize";

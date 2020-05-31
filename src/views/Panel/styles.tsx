@@ -9,16 +9,16 @@ const hide = keyframes`
     right: 0;
   }
   80% {
-    right:-20%;
+    right: -20%;
   }
   100% {
-    right:-20%;
+    right: -20%;
   }
 `;
 
 const show = keyframes`
   0% {
-    right:-20%;
+    right: -20%;
   }
   80% {
     right: 0;

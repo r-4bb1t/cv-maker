@@ -20,3 +20,5 @@ cv making web app!
 - Save
   - PDF
   - image
+- Menu Panel
+  - ~~hide and show~~

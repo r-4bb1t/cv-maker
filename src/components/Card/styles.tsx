@@ -34,7 +34,7 @@ export const DragHandle = styled.div`
 export const ResizeHandle = styled.div`
   cursor: s-resize;
   position: relative;
-  top: -30px;
+  top: -25px;
 `;
 
 export const BorderLine = styled.div<ResizeProps>`
