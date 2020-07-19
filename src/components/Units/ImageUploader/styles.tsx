@@ -5,7 +5,7 @@ export const ProfileImage = styled.img`
   box-sizing: border-box;
   width: 100%;
   border-radius: 50%;
-  border: 5px solid lightblue;
+  border: 5px solid #696f96;
 `;
 
 export const Overlay = styled.label`

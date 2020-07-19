@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useRef } from "react";
+import React from "react";
 import { useDrag, useDrop, DragPreviewImage } from "react-dnd";
 import * as S from "./styles";
 import DragHandleIcon from "@material-ui/icons/DragHandle";
@@ -10,7 +10,7 @@ interface CardProps {
   height: any;
   moveCard: (fromIndex: number, toIndex: number) => void;
   findCard: (index: number) => { index: number };
-  isLast: boolean;
+  isResizable: boolean;
 }
 
 interface Item {
@@ -19,7 +19,7 @@ interface Item {
   originalIndex: number;
 }
 
-function Card({ id, height, moveCard, findCard, isLast, children }: CardProps) {
+function Card({ id, height, moveCard, findCard, isResizable, children }: CardProps) {
   const originalIndex = findCard(id).index;
   const [{ isDragging }, drag, preview] = useDrag({
     item: { type: "card", id, originalIndex },
@@ -70,21 +70,16 @@ function Card({ id, height, moveCard, findCard, isLast, children }: CardProps) {
         <S.DragHandle ref={(node) => drag(node)}>
           <DragHandleIcon style={{ color: "lightgray" }} />
         </S.DragHandle>
-        {/* {children} */}
-        {
-          <span style={{ fontWeight: 700, fontSize: "1.2rem" }}>
-            {id} : {children}
-          </span>
-        }
-        {isLast ? (
-          <></>
-        ) : (
+        {children}
+        {isResizable ? (
           <S.BorderLine isResizing={isResizing} ref={(node) => resize(node)}>
             <DragPreviewImage connect={resizePreview} src={"nullPreview.png"} />
             <S.ResizeHandle ref={(node) => resize(node)}>
               <HeightIcon style={{ color: "lightgray" }} />
             </S.ResizeHandle>
           </S.BorderLine>
+        ) : (
+          <></>
         )}
       </S.Card>
     </>

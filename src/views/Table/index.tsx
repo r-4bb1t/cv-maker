@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as S from "./styles";
 import { useDrop } from "react-dnd";
-import { Map, List, Record } from "immutable";
+import { Map, List } from "immutable";
 import Card from "../../components/Card";
 import Profile from "../../components/Contents/Profile";
 
@@ -12,9 +12,8 @@ interface TableProps {
 const cardItems = List([
   Map({
     id: 0,
-    /* children: <Profile />, */
-    children: "고양이다.",
-    height: 2,
+    children: <Profile />,
+    height: 3,
   }),
   Map({
     id: 1,
@@ -34,7 +33,7 @@ const cardItems = List([
   Map({
     id: 4,
     children: "Life is life!",
-    height: 2,
+    height: 1,
   }),
 ]);
 
@@ -60,12 +59,8 @@ function Table({ zoom }: TableProps) {
     accept: "resize",
     hover(item, monitor) {
       const { index, height } = monitor.getItem();
-      let sum =
-        cards.getIn([index, "height"]) + cards.getIn([index + 1, "height"]);
-      let temp = Math.max(
-        Math.round(height + monitor.getDifferenceFromInitialOffset().y / 100),
-        1
-      );
+      let sum = cards.getIn([index, "height"]) + cards.getIn([index + 1, "height"]);
+      let temp = Math.max(Math.round(height + monitor.getDifferenceFromInitialOffset().y / 100), 1);
       if (temp < sum) {
         let newCards = cards;
         newCards = newCards.setIn([index, "height"], temp);
@@ -85,7 +80,7 @@ function Table({ zoom }: TableProps) {
             id={card.get("id")}
             moveCard={moveCard}
             findCard={findCard}
-            isLast={findCard(card.get("id")).index === cards.size - 1}
+            isResizable={!(findCard(card.get("id")).index === cards.size - 1)}
             children={card.get("children")}
           />
         ))}

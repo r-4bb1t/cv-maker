@@ -12,7 +12,6 @@ interface ResizeProps {
 
 export const Card = styled.div<CardProps>`
   position: relative;
-  float: left;
   width: 100%;
   height: ${(props) => props.height * 10}%;
   background: ${(props) => (props.isOver ? "lightblue" : "white")};
